@@ -11,6 +11,7 @@ public class Main {
         );
         var t = Integer.parseInt(br.readLine());
 
+        int[] result = new int[t];
         Main main = new Main();
         for (int i = 0; i < t; i++) {
             var condition = br.readLine().split(" ");
@@ -24,12 +25,14 @@ public class Main {
                 var y = Integer.parseInt(value[1]);
                 arr[y][x] = 1;
             }
-        System.out.println(main.solve(arr, m, n));
-        }
+        result[i] = main.solve(arr, m, n);
 
+        }
+        for (int i = 0; i < t; i++) {
+            System.out.println(result[i]);
+        }
     }
-//    public int m = 0;
-//    public int n = 0;
+
     public int[][] visited;
 
     public int solve(int[][] arr, int m, int n) {
