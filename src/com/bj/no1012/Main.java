@@ -28,8 +28,8 @@ public class Main {
         }
 
     }
-    public int m = 0;
-    public int n = 0;
+//    public int m = 0;
+//    public int n = 0;
     public int[][] visited;
 
     public int solve(int[][] arr, int m, int n) {
@@ -37,7 +37,7 @@ public class Main {
         int count = 0;
         for (int x=0; x<m; x++){
             for (int y=0; y<n; y++){
-                if (dfs(arr, x, y)){
+                if (dfs(arr, x, y, m, n)){
                     count++;
                 }
             }
@@ -45,17 +45,17 @@ public class Main {
         return count;
     }
 
-    public boolean dfs(int[][] arr, int x, int y){
+    public boolean dfs(int[][] arr, int x, int y, int m, int n){
         if (x < 0 || y < 0 || x >= m || y >= n){
             return false;
         }
         else {
             if (visited[y][x] == 0 && arr[y][x] == 1) {
                 visited[y][x] = 1;
-                dfs(arr, x + 1, y);
-                dfs(arr, x - 1, y);
-                dfs(arr, x, y + 1);
-                dfs(arr, x, y - 1);
+                dfs(arr, x + 1, y, m, n);
+                dfs(arr, x - 1, y, m, n);
+                dfs(arr, x, y + 1, m, n);
+                dfs(arr, x, y - 1, m, n);
                 return true;
             } else {
                 return false;
