@@ -13,7 +13,8 @@ public class Main {
         int relationNumber = sc.nextInt();
         int[][] relation = new int[familyNumber+1][familyNumber+1];
 
-        for (int i=0; i<relationNumber; i++){
+
+        for (int i=1; i<=relationNumber; i++){
             int parent = sc.nextInt();
             int child = sc.nextInt();
             relation[parent][child] = 1;
@@ -27,45 +28,37 @@ public class Main {
 
 
     public int distance(int[][] relation, int familyNumber, int personA, int personB){
-        int[][] distanceArray = new int[familyNumber+1][familyNumber+1];
-
-        for (int i=0; i<=familyNumber; i++){
-            for (int j=0; j<=familyNumber; j++)
-
-        }
+        int[] distanceArray = new int[familyNumber+1];
 
         for (int i=1; i<=familyNumber; i++){
-            if (i==personA){
-                distanceArray[personA][i] = 0;
+            if (relation[personA][i] == 0) {
+                distanceArray[i] = 10000;
             }
-            else{
-                if (relation[personA][i] == 1) {
-                    distanceArray[personA][i] = 1;
-                }
-                else{
-                    distanceArray[personA][i] = Integer.MAX_VALUE;
-                }
+            else {
+                distanceArray[i] = relation[personA][i];
             }
+            distanceArray[personA] = 0;
         }
 
+
+
         for (int i=1; i<=familyNumber; i++){
-            if (i==personB){
-            }
-            else{
-                for (int j=1; j<=familyNumber; j++)
+            System.out.println("");
+            for (int j=1; j<=familyNumber; j++) {
                 if (relation[i][j] == 1) {
-//                    distanceArray[i][j] = Math.min(distanceArray[personA][j], distanceArray[i][j]+1 );
+                    distanceArray[j] = Math.min(distanceArray[j], (distanceArray[i] + relation[i][j]));
                 }
-                else{
-                    distanceArray[personA][i] = Integer.MAX_VALUE;
-                }
+                System.out.println(distanceArray[j]);
             }
         }
 
-        int d = Integer.MAX_VALUE;
 
 
-        return d;
+        if (distanceArray[personB] == Integer.MAX_VALUE){
+            return -1;
+        }
+        else {
+            return distanceArray[personB];
+        }
     }
-
 }
