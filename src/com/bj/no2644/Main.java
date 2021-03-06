@@ -1,7 +1,6 @@
 package com.bj.no2644;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -13,14 +12,12 @@ public class Main {
         int relationNumber = sc.nextInt();
         int[][] relation = new int[familyNumber+1][familyNumber+1];
 
-
         for (int i=1; i<=relationNumber; i++){
             int parent = sc.nextInt();
             int child = sc.nextInt();
             relation[parent][child] = 1;
             relation[child][parent] = 1;
         }
-
         Main main = new Main();
         System.out.println(main.distance(relation, familyNumber, personA, personB));
 
@@ -43,18 +40,17 @@ public class Main {
 
 
         for (int i=1; i<=familyNumber; i++){
-            System.out.println("");
+//            System.out.println("");
             for (int j=1; j<=familyNumber; j++) {
                 if (relation[i][j] == 1) {
                     distanceArray[j] = Math.min(distanceArray[j], (distanceArray[i] + relation[i][j]));
+                    distanceArray[i] = Math.min(distanceArray[i], (distanceArray[j] + relation[i][j]));
                 }
-                System.out.println(distanceArray[j]);
+//                System.out.println(distanceArray[j]);
             }
         }
 
-
-
-        if (distanceArray[personB] == Integer.MAX_VALUE){
+        if (distanceArray[personB] == 10000){
             return -1;
         }
         else {
