@@ -18,7 +18,7 @@ public class Main {
             relation[parent][child] = 1;
             relation[child][parent] = 1;
         }
-        Main main = new Main();
+        com.bj.no2644bfs.Main main = new com.bj.no2644bfs.Main();
         System.out.println(main.distance(relation, familyNumber, personA, personB));
 
     }
