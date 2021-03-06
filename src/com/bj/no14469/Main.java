@@ -13,16 +13,9 @@ public class Main {
         }
         @Override
         public int compareTo(Cow o) {
-            if (this.n > o.n){
-                return 1;
-            }
-            else if (this.n < o.n){
-                return -1;
-            }
-            else {
-                return 0;
-            }
+            return this.n - o.n;
         }
+
     }
 
     public static void main(String[] args){
@@ -30,12 +23,19 @@ public class Main {
         PriorityQueue<Cow> pq = new PriorityQueue<>();
         var rowNumber = sc.nextInt();
         for (int i=0; i<rowNumber; i++){
-            pq.add(new Cow(sc.nextInt(), sc.nextInt()));
+            pq.offer(new Cow(sc.nextInt(), sc.nextInt()));
         }
 
-        for (var r: pq){
-            System.out.println(r.n);
-        }
+        var elapsedTime = 0;
 
+        while(!pq.isEmpty()){
+            var cow = pq.remove();
+            var startTime = elapsedTime;
+            if (elapsedTime < cow.n){
+                startTime = cow.n;
+            }
+            elapsedTime = startTime + cow.t;
+        }
+        System.out.println(elapsedTime);
     }
 }
