@@ -1,62 +1,56 @@
 package com.bj.no1920;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        PriorityQueue<Integer> poolPQ = new PriorityQueue<>();
-        ArrayDeque<Integer> element = new ArrayDeque<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(System.in)
+        );
+
+
         ArrayList<Integer> result = new ArrayList<>();
-        var poolNumber = sc.nextInt();
+        var poolNumber = Integer.parseInt(br.readLine());
+        int[] pool = new int[poolNumber];
+        var st = new StringTokenizer(br.readLine(), " ");
         for (int i=0; i<poolNumber; i++){
-            poolPQ.offer(sc.nextInt());
+            pool[i]=Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(pool);
 
-        ArrayList<Integer> poolArr = new ArrayList<>();
-        while(!poolPQ.isEmpty()){
-            poolArr.add(poolPQ.remove());
-        }
+        var elementNumber = Integer.parseInt(br.readLine());
+        var element = new int[elementNumber];
+        st = new StringTokenizer(br.readLine(), " ");
 
-
-        var elementNumber = sc.nextInt();
         for (int j=0; j<elementNumber; j++){
-            element.addLast(sc.nextInt());
+            element[j] = Integer.parseInt(st.nextToken());
         }
 
         Main main = new Main();
-        main.check(element, poolArr);
+        main.check(element, pool);
     }
 
 
-    public void check(ArrayDeque<Integer> search, ArrayList<Integer> target) {
+    public void check(int[] search, int[] target) {
         ArrayList<Integer> result = new ArrayList<>();
 
-        while (!search.isEmpty()) {
-            var s = search.remove();
-            int low = 0, mid=0, high = target.size()-1;
-            while (low <= high) {
-                mid = (low + high) / 2;
-                if (target.get(mid) < s) {
-                    low = mid + 1;
-                } else if (target.get(mid) > s) {
-
-                    high = mid - 1;
-                } else if (target.get(mid) == s) {
-                    result.add(1);
-                    break;
-                }
-            }
-            if (target.get(mid) != s){
+        for (var s: search) {
+            if (Arrays.binarySearch(target, s) >= 0 ) {
+                result.add(1);
+            } else {
                 result.add(0);
             }
+        }
+        var sb = new StringBuilder();
 
-        }
         for (var r : result) {
-            System.out.println(r);
+            sb.append(r);
+            sb.append('\n');
         }
+
+        System.out.println(sb.toString());
     }
 }
